@@ -196,8 +196,8 @@ class CodeActAgent(Agent):
         params['extra_body'] = {'metadata': state.to_llm_metadata(agent_name=self.name)}
         # codeact在此处使用litellm发起模型的api调用  TODO 接一个转发服务，将参数传到容器外，转发服务连通容器和平台
         # response = self.llm.completion(**params)
-        response = resp = requests.post("http://10.79.208.49:18192/call_model_api",json=params)
-        response = litellm.ModelResponse.model_validate(response)  # 反序列化
+        resp = requests.post("http://10.79.208.49:18192/call_model_api",json=params)
+        response = litellm.ModelResponse.model_validate(resp.json())  # 反序列化
         # logger.info(f'Response from LLM: {response}')  # 容器内不输出，加一条info级别的日志试试
         logger.debug(f'Response from LLM: {response}')
         actions = self.response_to_actions(response)
