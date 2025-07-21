@@ -295,7 +295,7 @@ class AgentController:
 
         # Set the agent state to ERROR after storing the reason
         await self.set_agent_state_to(AgentState.ERROR)
-
+    # 确定agent代理后调用agent.step() 默认走codeact_agent
     def step(self) -> None:
         asyncio.create_task(self._step_with_exception_handling())
 
